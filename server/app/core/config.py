@@ -9,6 +9,9 @@ class Settings(BaseSettings):
     # Database
     DATABASE_URL: str
     
+    # Security
+    BACKEND_CORS_ORIGINS: list[str] | str = ["http://localhost:3000", "https://venai.vercel.app"]
+    
     # Clerk Auth
     CLERK_SECRET_KEY: str | None = None
     CLERK_PUBLISHABLE_KEY: str | None = None

@@ -11,7 +11,7 @@ class ChatSession(Base):
     
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, index=True)
     organization_id = Column(UUID(as_uuid=True), ForeignKey("organizations.id"), nullable=False, index=True)
-    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False, index=True)
     title = Column(String(255), default="New Chat")
     
     created_at = Column(DateTime(timezone=True), default=datetime.utcnow)
@@ -32,6 +32,6 @@ class ChatMessage(Base):
     # Optional metadata (e.g. tool call details, function names)
     meta_data = Column(JSON, nullable=True) 
     
-    created_at = Column(DateTime(timezone=True), default=datetime.utcnow)
+    created_at = Column(DateTime(timezone=True), default=datetime.utcnow, index=True)
     
     session = relationship("ChatSession", back_populates="messages")

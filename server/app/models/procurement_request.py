@@ -22,10 +22,10 @@ class ProcurementRequest(Base):
     requirements = Column(Text, nullable=True)
     
     # Statuses: draft, searching, calling, analyzing, completed, cancelled
-    status = Column(String, default="draft", nullable=False)
+    status = Column(String, default="draft", nullable=False, index=True)
     
     analysis_result = Column(Text, nullable=True)
     call_results_json = Column(Text, nullable=True)
     
-    created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
+    created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), index=True)
     updated_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))

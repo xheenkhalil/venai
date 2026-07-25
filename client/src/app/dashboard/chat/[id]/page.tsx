@@ -25,15 +25,22 @@ export default function ChatPage() {
 
   useEffect(() => {
     if (!id) return;
-    
     fetchSession();
-    
-    const interval = setInterval(() => {
-      fetchSession(false);
-    }, 5000);
-    
-    return () => clearInterval(interval);
   }, [id]);
+
+  useEffect(() => {
+    if (!id || messages.length === 0) return;
+    
+    const lastMsg = messages[messages.length - 1];
+    const isWorkflowRunning = lastMsg.role === 'ai' && lastMsg.content.includes("Workflow successfully started");
+    
+    if (isWorkflowRunning) {
+      const interval = setInterval(() => {
+        fetchSession(false);
+      }, 5000);
+      return () => clearInterval(interval);
+    }
+  }, [id, messages]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });

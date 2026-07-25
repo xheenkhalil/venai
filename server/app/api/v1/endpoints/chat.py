@@ -10,8 +10,23 @@ from app.models.user import User
 from app.models.chat import ChatSession, ChatMessage
 from pydantic import BaseModel
 from datetime import datetime
+import time
 
 router = APIRouter()
+
+RATE_LIMITS = {}
+
+def check_rate_limit(user_id: uuid.UUID):
+    now = time.time()
+    if user_id not in RATE_LIMITS:
+        RATE_LIMITS[user_id] = []
+    
+    RATE_LIMITS[user_id] = [t for t in RATE_LIMITS[user_id] if now - t < 60]
+    
+    if len(RATE_LIMITS[user_id]) >= 15:
+        raise HTTPException(status_code=429, detail="Rate limit exceeded. Please wait a minute.")
+        
+    RATE_LIMITS[user_id].append(now)
 
 class ChatMessageCreate(BaseModel):
     role: str
@@ -116,6 +131,8 @@ async def send_chat_message(
 ) -> Any:
     clerk_id = current_user.get("sub")
     user_id, org_id = await get_or_create_user_org(db, clerk_id, "", "")
+    
+    check_rate_limit(user_id)
     
     # Verify session
     result = await db.execute(
