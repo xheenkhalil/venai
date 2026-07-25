@@ -10,7 +10,7 @@ class Settings(BaseSettings):
     DATABASE_URL: str
     
     # Security
-    BACKEND_CORS_ORIGINS: list[str] | str = ["http://localhost:3000", "https://venai.vercel.app"]
+    BACKEND_CORS_ORIGINS: list[str] | str = ["http://localhost:3000", "https://venai.vercel.app", "https://venai-puce.vercel.app"]
     
     # Clerk Auth
     CLERK_SECRET_KEY: str | None = None

@@ -30,7 +30,7 @@ export default function NewRequestPage() {
 
     try {
       const token = await getToken();
-      const res = await fetch("http://localhost:8000/api/v1/procurement-requests/", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/api/v1/procurement-requests/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

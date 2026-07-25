@@ -27,7 +27,7 @@ export default function RequestDetailPage({ params }: { params: Promise<{ id: st
   const fetchRequest = async () => {
     try {
       const token = await getToken();
-      const res = await fetch(`http://localhost:8000/api/v1/procurement-requests/${unwrappedParams.id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/api/v1/procurement-requests/${unwrappedParams.id}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -69,7 +69,7 @@ export default function RequestDetailPage({ params }: { params: Promise<{ id: st
   const fetchVendors = async () => {
     try {
       const token = await getToken();
-      const res = await fetch(`http://localhost:8000/api/v1/procurement-requests/${unwrappedParams.id}/vendors`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/api/v1/procurement-requests/${unwrappedParams.id}/vendors`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (res.ok) {
@@ -104,7 +104,7 @@ export default function RequestDetailPage({ params }: { params: Promise<{ id: st
     setError("");
     try {
       const token = await getToken();
-      const res = await fetch(`http://localhost:8000/api/v1/vendors/search?request_id=${unwrappedParams.id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/api/v1/vendors/search?request_id=${unwrappedParams.id}`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`
@@ -130,7 +130,7 @@ export default function RequestDetailPage({ params }: { params: Promise<{ id: st
     setCallingVendor(prev => ({...prev, [vendorId]: true}));
     try {
       const token = await getToken();
-      const res = await fetch(`http://localhost:8000/api/v1/agents/call/${unwrappedParams.id}/${vendorId}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/api/v1/agents/call/${unwrappedParams.id}/${vendorId}`, {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -153,7 +153,7 @@ export default function RequestDetailPage({ params }: { params: Promise<{ id: st
     setError("");
     try {
       const token = await getToken();
-      const res = await fetch(`http://localhost:8000/api/v1/agents/start/${unwrappedParams.id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/api/v1/agents/start/${unwrappedParams.id}`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`
