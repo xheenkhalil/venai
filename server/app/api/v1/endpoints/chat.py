@@ -58,7 +58,7 @@ async def get_chat_sessions(
     current_user: dict = Depends(get_current_user),
 ) -> Any:
     clerk_id = current_user.get("sub")
-    user_id, _ = await get_or_create_user_org(db, clerk_id, "", "")
+    user_id, _ = await get_or_create_user_org(db, clerk_id, f"{clerk_id}@placeholder.com", "User")
     result = await db.execute(
         select(ChatSession)
         .where(ChatSession.user_id == user_id)
@@ -74,7 +74,7 @@ async def create_chat_session(
     current_user: dict = Depends(get_current_user),
 ) -> Any:
     clerk_id = current_user.get("sub")
-    user_id, org_id = await get_or_create_user_org(db, clerk_id, "", "")
+    user_id, org_id = await get_or_create_user_org(db, clerk_id, f"{clerk_id}@placeholder.com", "User")
     session = ChatSession(
         user_id=user_id,
         organization_id=org_id,
@@ -92,7 +92,7 @@ async def get_chat_session(
     current_user: dict = Depends(get_current_user),
 ) -> Any:
     clerk_id = current_user.get("sub")
-    user_id, _ = await get_or_create_user_org(db, clerk_id, "", "")
+    user_id, _ = await get_or_create_user_org(db, clerk_id, f"{clerk_id}@placeholder.com", "User")
     result = await db.execute(
         select(ChatSession)
         .options(selectinload(ChatSession.messages))
@@ -110,7 +110,7 @@ async def delete_chat_session(
     current_user: dict = Depends(get_current_user),
 ) -> Any:
     clerk_id = current_user.get("sub")
-    user_id, _ = await get_or_create_user_org(db, clerk_id, "", "")
+    user_id, _ = await get_or_create_user_org(db, clerk_id, f"{clerk_id}@placeholder.com", "User")
     result = await db.execute(
         select(ChatSession).where(ChatSession.id == session_id, ChatSession.user_id == user_id)
     )
@@ -130,7 +130,7 @@ async def send_chat_message(
     current_user: dict = Depends(get_current_user),
 ) -> Any:
     clerk_id = current_user.get("sub")
-    user_id, org_id = await get_or_create_user_org(db, clerk_id, "", "")
+    user_id, org_id = await get_or_create_user_org(db, clerk_id, f"{clerk_id}@placeholder.com", "User")
     
     check_rate_limit(user_id)
     

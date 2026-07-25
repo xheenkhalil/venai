@@ -1,0 +1,9 @@
+import base64
+import json
+
+payload = "eyJhenAiOiJodHRwczovL3ZlbmFpLXB1Y2UudmVyY2VsLmFwcCIsImV4cCI6MTc4NDk4NzI1MSwiZnZhIjpbMjgsLTFdLCJpYXQiOjE3ODQ5ODcxOTEsImlzcyI6Imh0dHBzOi8vZ3VpZGVkLWNvbHQtNjUuY2xlcmsuYWNjb3VudHMuZGV2IiwibmJmIjoxNzg0OTg3MTgxLCJvIjp7ImlkIjoib3JnXzNHem9LNlBZSVpsVjRMWlBndVVxTGQzZ0xmdiIsInJvbCI6ImFkbWluIiwic2xnIjoibW9zZXMtcy1vcmdhbml6YXRpb24tMTc4NDk4MzY5MTgxMjkxMjE0NCJ9LCJzaWQiOiJzZXNzXzNHenJ6QVN3UjNsWE91UmZZck96Y1NkM3JnMyIsInN0cyI6ImFjdGl2ZSIsInN1YiI6InVzZXJfM0d6b0pRZkJJMmw0NFRtNkR4RUpQQXVHV1JPIiwidiI6Mn0"
+
+# add padding if necessary
+payload += "=" * ((4 - len(payload) % 4) % 4)
+decoded = base64.b64decode(payload)
+print(json.dumps(json.loads(decoded), indent=2))

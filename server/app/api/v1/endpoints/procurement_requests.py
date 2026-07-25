@@ -64,8 +64,8 @@ async def read_requests(
     current_user: dict = Depends(get_current_user)
 ):
     clerk_id = current_user.get("sub")
-    email = current_user.get("email", "")
-    name = current_user.get("name", "")
+    email = current_user.get("email") or f"{clerk_id}@placeholder.com"
+    name = current_user.get("name") or "User"
     
     user_id, org_id = await get_or_create_user_org(db, clerk_id, email, name)
     
@@ -83,8 +83,8 @@ async def create_request(
     current_user: dict = Depends(get_current_user)
 ):
     clerk_id = current_user.get("sub")
-    email = current_user.get("email", "")
-    name = current_user.get("name", "")
+    email = current_user.get("email") or f"{clerk_id}@placeholder.com"
+    name = current_user.get("name") or "User"
     
     user_id, org_id = await get_or_create_user_org(db, clerk_id, email, name)
     
@@ -106,7 +106,7 @@ async def read_request(
     current_user: dict = Depends(get_current_user)
 ):
     clerk_id = current_user.get("sub")
-    user_id, org_id = await get_or_create_user_org(db, clerk_id, "", "")
+    user_id, org_id = await get_or_create_user_org(db, clerk_id, f"{clerk_id}@placeholder.com", "User")
     
     try:
         req_uuid = uuid.UUID(request_id)
@@ -132,7 +132,7 @@ async def read_request_vendors(
     current_user: dict = Depends(get_current_user)
 ):
     clerk_id = current_user.get("sub")
-    user_id, org_id = await get_or_create_user_org(db, clerk_id, "", "")
+    user_id, org_id = await get_or_create_user_org(db, clerk_id, f"{clerk_id}@placeholder.com", "User")
     
     try:
         req_uuid = uuid.UUID(request_id)
