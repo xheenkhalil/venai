@@ -38,7 +38,7 @@ export default function AnalyticsPage() {
   };
 
   if (loading) {
-    return <div className=`p-8 text-slate-500 animate-pulse">Loading analytics...</div>;
+    return <div className="p-8 text-slate-500 animate-pulse">Loading analytics...</div>;
   }
 
   const formatCurrency = (amount: number) => {

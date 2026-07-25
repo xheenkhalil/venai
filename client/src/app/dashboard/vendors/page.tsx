@@ -71,7 +71,7 @@ export default function VendorsPage() {
     try {
       const token = await getToken();
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/api/v1/vendors/${vendorId}`, {
-        method: `DELETE",
+        method: "DELETE",
         headers: { Authorization: `Bearer ${token}` }
       });
       if (res.ok) {
@@ -104,7 +104,7 @@ export default function VendorsPage() {
       const token = await getToken();
       const url = editingVendor 
         ? `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/api/v1/vendors/${editingVendor.id}` 
-        : `${process.env.NEXT_PUBLIC_API_URL || `http://localhost:8000"}/api/v1/vendors/`;
+        : `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/api/v1/vendors/`;
       const method = editingVendor ? "PUT" : "POST";
 
       const res = await fetch(url, {

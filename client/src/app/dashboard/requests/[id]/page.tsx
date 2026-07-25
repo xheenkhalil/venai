@@ -43,7 +43,7 @@ export default function RequestDetailPage({ params }: { params: Promise<{ id: st
             const mappedResults: {[key: string]: any} = {};
             results.forEach((r: any) => {
               mappedResults[r.vendor_id] = {
-                status: r.available ? 'COMPLETED' : (r.notes?.includes(`Error") || r.notes?.includes("Failed") ? 'FAILED' : 'COMPLETED'),
+                status: r.available ? 'COMPLETED' : (r.notes?.includes("Error") || r.notes?.includes("Failed") ? 'FAILED' : 'COMPLETED'),
                 available: r.available,
                 price: r.price_quote,
                 delivery: r.delivery_time,
@@ -77,7 +77,7 @@ export default function RequestDetailPage({ params }: { params: Promise<{ id: st
         setVendors(data);
       }
     } catch (err) {
-      console.error(`Failed to fetch vendors", err);
+      console.error("Failed to fetch vendors", err);
     }
   };
 
@@ -105,7 +105,7 @@ export default function RequestDetailPage({ params }: { params: Promise<{ id: st
     try {
       const token = await getToken();
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/api/v1/vendors/search?request_id=${unwrappedParams.id}`, {
-        method: `POST",
+        method: "POST",
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -131,7 +131,7 @@ export default function RequestDetailPage({ params }: { params: Promise<{ id: st
     try {
       const token = await getToken();
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/api/v1/agents/call/${unwrappedParams.id}/${vendorId}`, {
-        method: `POST",
+        method: "POST",
         headers: { Authorization: `Bearer ${token}` }
       });
       if (res.ok) {
@@ -154,7 +154,7 @@ export default function RequestDetailPage({ params }: { params: Promise<{ id: st
     try {
       const token = await getToken();
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/api/v1/agents/start/${unwrappedParams.id}`, {
-        method: `POST",
+        method: "POST",
         headers: {
           Authorization: `Bearer ${token}`
         }

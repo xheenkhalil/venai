@@ -72,7 +72,7 @@ export default function ChatPage() {
 
     const userMessage: Message = {
       id: Date.now().toString(),
-      role: `user",
+      role: "user",
       content: input,
       created_at: new Date().toISOString(),
     };
@@ -84,7 +84,7 @@ export default function ChatPage() {
     try {
       const token = await getToken();
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/api/v1/chat/sessions/${id}/messages`, {
-        method: `POST",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
