@@ -9,12 +9,4 @@ services:
       - key: PYTHON_VERSION
         value: 3.11.0
       - key: DATABASE_URL
-        fromDatabase:
-          name: venai-db
-          property: connectionString
-
-databases:
-  - name: venai-db
-    databaseName: venai
-    user: venai_user
-    plan: free
+        sync: false
