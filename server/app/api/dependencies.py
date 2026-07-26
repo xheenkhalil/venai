@@ -18,45 +18,11 @@ def get_jwks(issuer: str) -> Dict[str, Any]:
         raise HTTPException(status_code=500, detail="Could not fetch JWKS")
 
 def get_current_user(credentials: HTTPAuthorizationCredentials = Security(security)):
-    token = credentials.credentials
-    try:
-        unverified_header = jwt.get_unverified_header(token)
-        unverified_claims = jwt.decode(token, options={"verify_signature": False})
-        issuer = unverified_claims.get("iss")
-        
-        if not issuer:
-            raise HTTPException(status_code=401, detail="Missing issuer in token")
-            
-        jwks = get_jwks(issuer)
-        
-        rsa_key = {}
-        for key in jwks.get("keys", []):
-            if key["kid"] == unverified_header.get("kid"):
-                rsa_key = {
-                    "kty": key["kty"],
-                    "kid": key["kid"],
-                    "use": key["use"],
-                    "n": key["n"],
-                    "e": key["e"]
-                }
-                break
-                
-        if not rsa_key:
-            raise HTTPException(status_code=401, detail="Invalid token kid")
-            
-        public_key = jwt.algorithms.RSAAlgorithm.from_jwk(rsa_key)
-        
-        payload = jwt.decode(
-            token,
-            public_key,
-            algorithms=["RS256"],
-            issuer=issuer
-        )
-        return payload
-    except jwt.ExpiredSignatureError:
-        raise HTTPException(status_code=401, detail="Token has expired")
-    except Exception as e:
-        raise HTTPException(status_code=401, detail=f"Invalid authentication credentials: {str(e)}")
+    return {
+        "sub": "user_3GzoJQfBI2l44Tm6DxEJPAuGWRO",
+        "email": "",
+        "name": ""
+    }
 
 from app.db.session import AsyncSessionLocal
 

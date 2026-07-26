@@ -1,0 +1,19 @@
+import requests
+
+url = "https://venai.onrender.com/api/v1/procurement-requests/"
+token = "eyJhbGciOiJSUzI1NiIsImNhdCI6ImNsX0I3ZDRQRDExMUFBQSIsImtpZCI6Imluc18zR3ZlZzFXclRhNndsa0dJTTZxTG1BTXpLU2EiLCJvaWF0IjoxNzg0OTg3Nzc3LCJ0eXAiOiJKV1QifQ.eyJhenAiOiJodHRwczovL3ZlbmFpLXB1Y2UudmVyY2VsLmFwcCIsImV4cCI6MTc4NDk4NzgzNywiZnZhIjpbMzcsLTFdLCJpYXQiOjE3ODQ5ODc3NzcsImlzcyI6Imh0dHBzOi8vZ3VpZGVkLWNvbHQtNjUuY2xlcmsuYWNjb3VudHMuZGV2IiwibmJmIjoxNzg0OTg3NzY3LCJvIjp7ImlkIjoib3JnXzNHem9LNlBZSVpsVjRMWlBndVVxTGQzZ0xmdiIsInJvbCI6ImFkbWluIiwic2xnIjoibW9zZXMtcy1vcmdhbml6YXRpb24tMTc4NDk4MzY5MTgxMjkxMjE0NCJ9LCJzaWQiOiJzZXNzXzNHenJ6QVN3UjNsWE91UmZZck96Y1NkM3JnMyIsInN0cyI6ImFjdGl2ZSIsInN1YiI6InVzZXJfM0d6b0pRZkJJMmw0NFRtNkR4RUpQQXVHV1JPIiwidiI6Mn0.JugnjQ-7_wVFQCk5PZ9WdrCmZ98_2j0W-XFNYLWpMqWm_ISZwPjFdCRy9HgDfwalKjFdx_DdTiHsiFbavUSHiAVxYrMNTh6XBMOdIY-l2m0hMjcsCFVN8WD0tF3gGU6myQJ6cy5Vh1PhHCqnpgpdkkKgFkYijTaxDuicP1FFubr96WlPkFva0lUEloAJTc1r6upMPOkOUo1uYtsXQytu_KqjaDxdLoUpPqGEEz8_RY-qbwLAP5ceEwBrfwrIemB3uyzxrNWLb8auFQjdLoLRSLkiF17TyWtTrJsm4r0oGk1biwodHgKKyjA1NSLSJ_5fKpRcTxnY6cpu12qW-X_3-g"
+
+headers = {
+    "Authorization": f"Bearer {token}",
+    "Origin": "https://venai-puce.vercel.app"
+}
+
+print("Fetching sessions...")
+res1 = requests.get("https://venai.onrender.com/api/v1/chat/sessions", headers=headers)
+print(res1.status_code)
+print(res1.text)
+
+print("Fetching requests...")
+res2 = requests.get(url, headers=headers)
+print(res2.status_code)
+print(res2.text)

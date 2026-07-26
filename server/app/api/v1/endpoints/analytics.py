@@ -20,7 +20,7 @@ async def get_analytics(
     current_user: dict = Depends(get_current_user),
 ) -> Any:
     clerk_id = current_user.get("sub")
-    user_id, org_id = await get_or_create_user_org(db, clerk_id, "", "")
+    user_id, org_id = await get_or_create_user_org(db, clerk_id, f"{clerk_id}@placeholder.com", "User")
     
     # Total Procurement Requests
     req_result = await db.execute(

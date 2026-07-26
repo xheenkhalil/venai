@@ -43,7 +43,7 @@ async def create_vendor(
     current_user: dict = Depends(get_current_user)
 ):
     clerk_id = current_user.get("sub")
-    user_id, org_id = await get_or_create_user_org(db, clerk_id, "", "")
+    user_id, org_id = await get_or_create_user_org(db, clerk_id, f"{clerk_id}@placeholder.com", "User")
     
     db_vendor = DBVendor(
         **vendor_in.model_dump(),
@@ -62,7 +62,7 @@ async def update_vendor(
     current_user: dict = Depends(get_current_user)
 ):
     clerk_id = current_user.get("sub")
-    user_id, org_id = await get_or_create_user_org(db, clerk_id, "", "")
+    user_id, org_id = await get_or_create_user_org(db, clerk_id, f"{clerk_id}@placeholder.com", "User")
     
     try:
         v_uuid = uuid.UUID(vendor_id)
@@ -90,7 +90,7 @@ async def delete_vendor(
     current_user: dict = Depends(get_current_user)
 ):
     clerk_id = current_user.get("sub")
-    user_id, org_id = await get_or_create_user_org(db, clerk_id, "", "")
+    user_id, org_id = await get_or_create_user_org(db, clerk_id, f"{clerk_id}@placeholder.com", "User")
     
     try:
         v_uuid = uuid.UUID(vendor_id)
@@ -114,7 +114,7 @@ async def search_and_add_vendors(
     current_user: dict = Depends(get_current_user)
 ):
     clerk_id = current_user.get("sub")
-    user_id, org_id = await get_or_create_user_org(db, clerk_id, "", "")
+    user_id, org_id = await get_or_create_user_org(db, clerk_id, f"{clerk_id}@placeholder.com", "User")
     
     # 1. Fetch procurement request
     try:

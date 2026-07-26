@@ -48,7 +48,7 @@ async def start_agent_workflow(
     current_user: dict = Depends(get_current_user)
 ):
     clerk_id = current_user.get("sub")
-    user_id, org_id = await get_or_create_user_org(db, clerk_id, "", "")
+    user_id, org_id = await get_or_create_user_org(db, clerk_id, f"{clerk_id}@placeholder.com", "User")
     
     req_uuid = uuid.UUID(request_id)
     result = await db.execute(
@@ -123,7 +123,7 @@ async def call_single_vendor(
     current_user: dict = Depends(get_current_user)
 ):
     clerk_id = current_user.get("sub")
-    user_id, org_id = await get_or_create_user_org(db, clerk_id, "", "")
+    user_id, org_id = await get_or_create_user_org(db, clerk_id, f"{clerk_id}@placeholder.com", "User")
     
     req_uuid = uuid.UUID(request_id)
     v_uuid = uuid.UUID(vendor_id)
